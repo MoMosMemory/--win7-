@@ -1,0 +1,419 @@
+html, body, div, p, ul, li{margin: 0; padding: 0; list-style: none;}
+
+html,body{
+  width: 100%;
+  height: 100%;
+  font-size: 14px;
+}
+
+body{
+  background: url('../images/bg.png') no-repeat center;
+  background-size: cover;
+}
+
+.section{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 360px;
+  height: 520px;
+  background: rgba(255, 255, 255, .7);
+  box-shadow: 0px 0px 10px #000;
+  border-radius: 5px;
+}
+
+/* === 高度 === */
+.section .date-wrapper{
+  position: relative;
+  margin-bottom: 12px;
+  height: 72px;
+}
+.section .ctrl-wrapper{
+  position: relative;
+  height: 42px; 
+  line-height: 42px; 
+}
+.section .calendar-wrapper{
+  position: relative;
+  height: calc(520px - 72px - 12px - 42px);
+  overflow: hidden;
+}
+
+/* =================== 表盘 ======================== */
+.date-wrapper .clock-wrapper{
+  position: absolute;
+  top: -72px;
+  left: 25px;
+  width: 144px;
+  height: 144px;
+  background: #f1f2f4;
+  box-shadow: 0px 0px 10px #000;
+  border-radius: 50%;
+  overflow: hidden;
+}
+/* ====== 表盘刻度 ===== */
+.clock-wrapper .clock-main{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 120px;
+  height: 120px;
+  background: url('../images/clock-bg.png') no-repeat center;
+  background-size: cover;
+  border: 5px solid #e15671; 
+  border-radius: 50%;
+}
+.clock-main #clock{
+  position: relative;
+}
+.clock-main .clock-lattice{
+  position: absolute;
+  left: 60px;    
+  width: 2px;
+  height: 6px;
+  background: #fff;
+  transform-origin: 1px 60px;
+}
+
+/* ======= 表盘指针 ====== */
+.pointer-wrapper{     
+  position: relative;     /* width: 120px; */
+} 
+.pointer-wrapper .dot,
+.pointer-wrapper .pointer-hour,
+.pointer-wrapper .pointer-minute{
+  position: absolute; 
+  left: 0;
+  right: 0;
+  margin: auto; 
+  transform: rotate(0deg);
+}
+
+.pointer-wrapper .dot{ 
+  top: 57px;
+  width: 6px;
+  height: 6px;
+  background: #fff;
+  border-radius: 4px;
+  z-index: 12;
+}
+
+.pointer-wrapper .pointer-hour{ 
+  top: 25px;      /* 120/2 - 35 */
+  width: 7px;
+  height: 35px;
+  background: #fff;
+  border-radius: 6px; 
+  transform-origin: center 35px;
+  z-index: 10;
+}
+.pointer-wrapper .pointer-minute{   
+  top: 15px;  /* 120/2 - 45 */
+  width: 4px;
+  height: 45px;
+  background: #fff;
+  border-radius: 4px;
+  transform-origin: center 45px;
+  z-index: 11;
+}
+.pointer-wrapper .pointer-second{
+  position: absolute;
+  top: 20px;
+  left: 22px;
+  width: 43px;
+  height: 44px;
+  background: url(../images/hand.png) no-repeat center;
+  transform-origin: 38px 39px;
+  transform: rotate(45deg);
+  z-index: 14;
+}
+
+/* ======= 当前日期 ====== */
+.date-wrapper .date-text{
+  position: relative;
+  margin-left: 180px;
+  padding-top: 20px;
+  font-size: 14px;
+}
+
+
+
+/* =================== 工具条 ======================== */
+.ctrl-wrapper{ 
+  position: relative;
+  padding: 0 20px;
+  background-image: linear-gradient(45deg, #efefef, #e1e1e1);
+}
+.ctrl-wrapper .ctrl-main{
+  position: absolute;
+  right: 20px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.ctrl-wrapper #dateCtrl{
+  cursor: pointer;
+}
+.ctrl-wrapper #dateCtrl:hover{
+  color: #e15671;
+}
+
+.ctrl-wrapper .ctrl-arrow{
+  position: relative;
+  display: inline-block;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+.ctrl-wrapper .ctrl-arrow:not(:last-child){
+  margin-right: 16px;
+}
+.ctrl-wrapper .ctrl-arrow:not(.disabled):hover{
+  border-color: #e15671;
+}
+.ctrl-wrapper .ctrl-arrow.disabled{
+  border-color: #ddd;
+}
+
+.ctrl-wrapper .ctrl-arrow,
+.ctrl-wrapper .ctrl-arrow::after {
+  border: 11px solid #666;
+  border-left-color: transparent !important;
+  border-right-color: transparent !important;
+}
+
+.ctrl-wrapper .ctrl-arrow::after{
+  content: '';
+  position: absolute; 
+  left: -11px;
+  border-color: #e1e1e1; 
+}
+
+.ctrl-wrapper .ctrl-arrow.up{
+  border-top: none;
+}
+.ctrl-wrapper .ctrl-arrow.up::after{
+  top: 1.4px;
+  border-top: none;
+}
+
+.ctrl-wrapper .ctrl-arrow.down{
+  border-bottom: none;
+}
+.ctrl-wrapper .ctrl-arrow.down::after{
+  top: -13px; 
+  border-bottom: none;
+}
+
+
+/* =================== 日历分布 ======================== */
+.calendar-wrapper{
+  width: 100%;      /* 内部： 360px - 15px * 2 = 330px */
+  height: 100%;     /* 内部： 394px - 15px * 2 = 360px */
+}
+
+/* 年月日 视图 */
+.calendar-wrapper .calendar-year,
+.calendar-wrapper .calendar-month,
+.calendar-wrapper .calendar-week{
+  height: 100%;
+}
+.calendar-wrapper .cell{
+  position: relative;
+  display: inline-block;
+  color: #333; 
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s;
+}
+.calendar-wrapper .cell.last-cell,
+.calendar-wrapper .cell.next-cell{  
+  color: #b2b2b2; 
+} 
+.calendar-wrapper .cell::after{
+  display: none;
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
+  margin: auto;
+}
+.calendar-wrapper .cell.active{
+  color: #a30000;
+}
+.calendar-wrapper .cell.active::after{
+  display: block;
+  background: #e15671;
+  border: 2px solid #fff;
+  outline: 3px solid #e15671;
+}
+.calendar-wrapper .cell:not(.active):not(.checked):hover::after{
+  display: block;
+  background: #ddd;
+  border: 2px solid #fff;
+  outline: 3px solid #ddd;
+}
+
+
+/* 年 视图 */ 
+.calendar-wrapper .year-cell{
+  width: calc(100% / 4);
+  height: calc(100% / 4);
+  line-height: calc(364px / 4);
+}
+.calendar-wrapper .year-cell::after{
+  width: calc(330px / 4 - 18px);
+  height: calc(330px / 4 - 18px);
+} 
+
+/* 月 视图 */ 
+.calendar-wrapper .month-cell{
+  width: calc(100% / 4);
+  height: calc(100% / 3);
+  line-height: calc(364px / 3);
+}
+.calendar-wrapper .month-cell::after{
+  width: calc(330px / 4 - 18px);
+  height: calc(330px / 4 - 18px);
+} 
+
+
+/* 周 视图 */
+.calendar-wrapper .calendar-week{
+  height: 42px;
+  line-height: 42px;
+  background: rgba(255, 255, 255, .7);
+  border-radius: 21px;
+}
+.calendar-wrapper .week-cell{
+  display: inline-block;
+  width: calc(100% / 7);  
+  text-align: center;
+} 
+
+
+/* 日历 视图 */
+.calendar-wrapper .date-cell{
+  width: calc(100% / 7);
+  height: calc(100% / 6);
+  line-height: calc((364px - 42px) / 6); 
+} 
+.calendar-wrapper .date-cell::after{
+  width: calc(330px / 7 - 18px);
+  height: calc(330px / 7 - 18px);
+} 
+
+.calendar-wrapper .date-cell.checked::after{
+  display: block;
+  background: #ddd;
+  border: 2px solid #fff;
+  outline: 3px solid #e15671;    
+}
+
+
+/* ###################################################### 动画 ###################################################### */
+.board{
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 15px 15px;
+}
+.out-board{
+  opacity: 0;
+}
+.in-board{
+  opacity: 1;
+}
+
+/* 日 - 月 - 年 */
+.toShow{
+  animation: to-show .3s ease;
+  animation-fill-mode: both;
+}
+
+.toHide{
+  animation: to-hide .3s ease;
+  animation-fill-mode: both;
+}
+
+@keyframes to-show{
+  from { opacity: 0; transform: scale(2) }
+  to { opacity: 1; transform: scale(1) }
+}
+
+@keyframes to-hide{ 
+  from { opacity: 1; transform: scale(1) }
+  to { opacity: 0; transform: scale(0) }
+} 
+
+/* 年 - 月 - 日 */
+.toBlow{
+  animation: to-blow .3s ease;
+  animation-fill-mode: both;
+}
+.toNarrow{
+  animation: to-narrow .3s ease;
+  animation-fill-mode: both;
+}
+
+@keyframes to-blow{
+  from { opacity: 1; transform: scale(1) }
+  to { opacity: 0; transform: scale(2) }
+}
+@keyframes to-narrow{
+    from { opacity: 0; transform: scale(0) }
+    to { opacity: 1; transform: scale(1) }
+}
+
+/* 向上切换 */ 
+.toTop{
+  animation: to-top .3s ease;
+  animation-fill-mode: both;
+} 
+.topOut{
+  animation: top-out .3s ease;
+  animation-fill-mode: both;
+}
+
+@keyframes to-top{
+  from { opacity: 0; top: 100% }
+  to { opacity: 1; top: 0 }
+}
+@keyframes top-out{
+    from { opacity: 1; top: 0 }
+    to { opacity: 0; top: -100% }
+}
+
+
+/* 向下切换 */ 
+.toBottom{
+  animation: to-bottom .3s ease;
+  animation-fill-mode: both;
+} 
+.bottomOut{
+  animation: bottom-out .3s ease;
+  animation-fill-mode: both;
+}
+
+@keyframes to-bottom{
+  from { opacity: 0; top: -100% }
+  to { opacity: 1; top: 0px }
+}
+@keyframes bottom-out{
+  from { opacity: 1; top: 0 }
+  to { opacity: 0; top: 100% }
+}
+
+

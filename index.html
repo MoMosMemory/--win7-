@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>win7系统日历</title>
+  <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+  <section class="section">
+    <!-- 当前表盘及时间-->
+    <div class="date-wrapper">
+      <div class="clock-wrapper">
+        <div class="clock-main">
+          <ul id="clock"></ul>
+          <div class="pointer-wrapper">
+            <div class="dot"></div>
+            <div class="pointer-hour"></div>
+            <div class="pointer-minute"></div>
+            <div class="pointer-second"></div>
+          </div>
+        </div>
+      </div>
+      <div class="date-text">
+        <p id="date"></p>
+        <p id="week"></p>
+      </div>
+    </div>
+    <!-- 控制条-->
+    <div class="ctrl-wrapper">
+      <p id="dateCtrl"></p>
+      <div class="ctrl-main">
+        <span class="ctrl-arrow up" id="prevCtrl"></span>
+        <span class="ctrl-arrow down" id="nextCtrl"></span>
+      </div>
+    </div>
+    <!-- 日历-->
+    <div class="calendar-wrapper">
+      <div class="board out-board"></div>
+      <div class="board in-board"></div>
+    </div>
+  </section>
+  <script>
+    // 防止选中
+    document.onselectstart = function(){
+      return false
+    }
+  </script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
